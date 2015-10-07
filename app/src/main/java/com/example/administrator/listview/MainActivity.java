@@ -59,7 +59,7 @@ public class MainActivity extends Activity  {
             /*setting up array of list items*/
             list_items.add(listitem);
             adapter.notifyDataSetChanged();
-            Toast.makeText(this, listitem.getListItemName(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "listitem created by name: "+listitem.getListItemName(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -69,7 +69,7 @@ public class MainActivity extends Activity  {
         } else {
             list.setListname(listName.getText().toString());
             db.putListData(list.getListname());
-            Toast.makeText(this, list.getListname(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "list created by name: "+ list.getListname(), Toast.LENGTH_LONG).show();
 
         }
     }
@@ -92,13 +92,18 @@ public class MainActivity extends Activity  {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.add) {
+            Toast.makeText(this,"this is",Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.delete) {
+
+            Toast.makeText(this,"this is",Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
    /* public void delete(View v) {
         if(v.getId()==R.id.button6){

@@ -97,7 +97,7 @@ public class Customadapter extends BaseAdapter {
 
         holder.textView.setText(""+position);
         holder.editText.setText(" " + list.get(position).getListItemName());
-       // holder.checkBox.setChecked(false);
+        //holder.checkBox.setChecked(false);
         return convertView;
     }
 

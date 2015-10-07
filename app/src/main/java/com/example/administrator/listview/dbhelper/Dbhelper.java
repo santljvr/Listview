@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.administrator.listview.model.List;
 
@@ -34,8 +35,11 @@ public class Dbhelper extends SQLiteOpenHelper {
     List list = new List();
     List.ListItem listItem;
     ArrayList<List.ListItem> listofitems;
+    ArrayList<List> list_list = new ArrayList<>();
 
     //List.ListItem listItem;
+
+
 
     public Dbhelper(Context context) {
         super(context, DB_Name, null, 1);
@@ -81,7 +85,6 @@ public class Dbhelper extends SQLiteOpenHelper {
     }
 
     public List getListRecord(String listname) {
-
         SQLiteDatabase db = this.getReadableDatabase();
         String listQuery;
         listQuery = "SELECT * FROM " + Table_Name1 + " WHERE " + COL2 + "=?";
@@ -92,13 +95,46 @@ public class Dbhelper extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.moveToFirst();
             list.setListname(cursor.getString(1));
-            db.close();
+
             return list;
         }   else {
-            db.close();
+
             return null;
         }
 
+    }
+    /* it will display the list*/
+    public ArrayList<List> getAllListRecords(){
+        Log.e("Test7","cursor before select");
+
+       SQLiteDatabase db = this.getReadableDatabase();
+        String listQuery1;
+        Log.e("Test1","cursor before select");
+        listQuery1 = "SELECT * FROM " + Table_Name1;
+        Cursor cursor;
+        Log.e("Test2","cursor after");
+        Log.e("Test3",listQuery1);
+        cursor = db.rawQuery(listQuery1, null);
+
+        Log.e("Test4","cursor");
+
+        cursor.moveToFirst();
+
+        if (cursor != null) {
+            Log.e(" Test5", "test");
+            while(cursor.moveToNext()){
+                List list1 = new List();
+                list1.setListname(cursor.getString(1));
+            list_list.add(list1);
+            }
+            db.close();
+            return list_list;
+
+        }   else {
+            Log.e("set"," end");
+            db.close();
+            return null;
+        }
     }
 
     public ArrayList<List.ListItem> getListItemRecord(String listname) {
@@ -121,7 +157,6 @@ public class Dbhelper extends SQLiteOpenHelper {
 
             }
         }
-        db.close();
         return listofitems;
     }
 
